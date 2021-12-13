@@ -1,75 +1,43 @@
-## Стилизация компонентов
+Задача № 1 Показать стандартные методы жизненого цикла компонента в классах на
+компоненте AddForm
 
-### Подготовка
+Задача № 2 Все колекции преподавателей, городрв, факультетов записывать в
+localStorage
 
-- подключить нормализацию стилей, используя
-  [встроенный CSS Reset](https://create-react-app.dev/docs/adding-css-reset/),
-  либо установив пакет
-  [modern-normalize](https://github.com/sindresorhus/modern-normalize)
-- создать папку `styles` для глобальных стилей и вынести туда `index.css`
-- в нем подключить шрифт
-  [Montserrat](https://fonts.google.com/specimen/Montserrat) жирностью 400, 500,
-  600 и использовать его в боди как основной
-- там же для `:root` создать css-переменные `--accent-color` с цветом и
-  `"#ff6b0a"` и `--text-color` с цветом `"#010101"`
-- там же `var --text-color` использовать в боди для задания цвета шрифта
+в компоненте CitiesBlock импортируем функции storage из сервисов при изменении
+компонента проверяем, если свойство cities в стейте изменится, нужно записать
+текущее его значение в localStorage Задача № 3 Все колекции преподавателей,
+городов, факультетов cчитывать с localStorage при первой загрузке страницы
 
-### Задача №1
+при монтировании компонента CitiesBlock cчитываем с localStorage массив
+сохраненных городов если сохраненные города есть, нужно записать их в стейт
+Задача № 4 Для компонента Modal добавить возможность закрытия по кнопке ESC:
 
-Сделать стилизацию App и Sidebar используя стандартный
-[CSS](https://create-react-app.dev/docs/adding-a-stylesheet)/[SCSS](https://create-react-app.dev/docs/adding-a-sass-stylesheet/):
+пишем метод handleKeydown, в котором закрываем модалку, если была нажата клавиша
+ESC при монтировании модалки вешаем слушателя события на window при
+размонтировании - снимаем Задача № 5 Реализовать рендер Modal в портале:
 
-- установим
-  [node-sass](https://create-react-app.dev/docs/adding-a-sass-stylesheet/) для
-  работы с SCSS
-- для Sidebar и Арр создадим CSS файлы, а для NavItem - SCSS
-- для Navigation используем инлайновые стили
+добавляем новый див в index.html с id modal-root, например в компоненте Modal
+импортируем метод createPortal из 'react-dom' получаем ссылку на новый див из
+ДОМа через обычный querySelector теперь все, что возвращалось в методе render,
+передаем первым аргументом в функцию createPortal, а вторым ссылочку на див и
+теперь возвращаем вызов этой функции Задача № 6 Переписать логику с несколькими
+полями в стейте для разных модалок на одно общее поле с разными состояниями. Для
+состояний использовать словарь:
 
-### Задача №2
+const MODAL = { NONE: 'none', EDIT: 'edit', DELETE: 'delete', }; в компоненте
+CitiesBlock оставляем только одно поле в стейте для модалок openedModal:
+MODAL.NONE переписываем методы для закрытия разных модалок на один общий модалки
+рендерим, сравнивая значение поля openedModal с соответствующими состояниями
+Задача № 7 Таймер и утечка памяти с setState() без componentWillUnmount:
 
-Добавить в NavItem иконки
-[react-icons](https://react-icons.github.io/react-icons/):
-
-- задать цвет `"#ff6b0a"` и размер `24px`
-
-```jsx
-import { HiBookOpen, HiAcademicCap } from 'react-icons/hi';
-
-export const navConfig = [
-  {
-    name: 'Университет',
-    icon: <HiBookOpen />,
-  },
-
-  {
-    name: 'Факультеты',
-    icon: <HiAcademicCap />,
-  },
-];
-```
-
-### Задача №3
-
-Сделать стилизацию Main, Header, UniversityBlock, Paper и Card используя
-[CSS-модули](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet):
-
-- создадим в папке styles файл `global.module.css`, в котором определим
-  глобальный стиль `.heading` для всех заголовков на странице, и подключим его в
-  `index.js`
-- в папке styles также создадим файлик `variables.module.css`, в который добавим
-  переменную, например `@value main-gap: 32px;`
-- Добавим стили в Main, Header, UniversityBlock, Paper и Card
-
-### Задача №4
-
-Застилизировать остаток макета используя
-[Emotion](https://emotion.sh/docs/introduction#react) (Section, TutorsBlock,
-Tutor, BigButton, CitiesList, DepartmentsList)
-
-- устанавливаем библиотеку и в нужных файлах
-  [прописываем коммент](https://emotion.sh/docs/css-prop#jsx-pragma)
-
-Для sass(scss) инсталировать -> npm install node-sass --save или npm i
-node-sass@6.0.0
-
-Инлайновый стиль в папке Navigation style={{paddingTop: 12}}
+в компоненте AddForm будем рендерить Timer при закрытии формы получим
+предупреждение чтобы решить проблему, нужно остановить интервал перед
+размонтированием таймера для этого создадим в классе свойство intervalId = null;
+Дополнительно в компоненте CitiesBlock рендерить фильтр только если есть хотя бы
+2 города в массиве городов рендерить список городов только, если есть хотя бы
+один город в массиве отфильтрованных городов Советы по ДЗ как работать с фетч
+вместе с componentDidUpdate как открывать модалку на фото (поле modalImg)
+уведомления методы жизненного цикла принято располагать сразу за стейтом, вверху
+класса методы жизненного цикла желательно не перегружать и выносить код в
+отдельные методы
